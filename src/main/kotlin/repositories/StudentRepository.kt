@@ -1,8 +1,8 @@
 package repositories
 
-import models.Student
+import domain.Student
 
-object StudentRepository {
+class StudentRepository {
     private val students = mutableListOf(
         Student(id = 1, legajo = "92838219/25", "Israel", "Adesanya", "yzzy@gmail.com"),
         Student(id = 2, legajo = "81256711/25", "Dricus", "Du Plessis", "dri@gmail.com")

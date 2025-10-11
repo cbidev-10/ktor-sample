@@ -24,6 +24,8 @@ dependencies {
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.kotlinx.serialization.jackson)
     implementation(libs.ktor.server.config.yaml)
+    implementation(libs.koin.ktor)
+    implementation(libs.koin.logger)
     testImplementation(libs.ktor.server.test.host)
     testImplementation(libs.kotlin.test.junit)
 }

@@ -1,16 +1,17 @@
+import domain.StudentUseCases
+import handlers.StudentHandler
 import io.ktor.server.application.Application
-import io.ktor.server.engine.embeddedServer
-import io.ktor.server.netty.Netty
-
-fun main() {
-    embeddedServer(
-        Netty,
-        port = 8080,
-        host = "0.0.0.0",
-        module = Application::module
-    ).start(wait = true)
-}
+import io.ktor.server.routing.routing
+import repositories.StudentRepository
 
 fun Application.module() {
-    configureRouting()
+    plugins()
+
+    val repository = StudentRepository
+    val studentUseCases = StudentUseCases(repository)
+    val handler = StudentHandler(studentUseCases)
+
+    routing {
+        with(handler) { studentRoutes() }
+    }
 }

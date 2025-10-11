@@ -5,7 +5,7 @@ import repositories.StudentRepository
 
 val appModule = module {
     single {
-        StudentRepository
+        StudentRepository()
     }
 
     single {

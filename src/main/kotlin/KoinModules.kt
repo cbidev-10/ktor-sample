@@ -1,4 +1,4 @@
-import domain.StudentUseCases
+import usecases.StudentUseCases
 import handlers.StudentHandler
 import org.koin.dsl.module
 import repositories.StudentRepository

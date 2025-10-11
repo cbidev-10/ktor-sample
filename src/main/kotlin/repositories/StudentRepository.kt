@@ -1,6 +1,6 @@
 package repositories
 
-import models.Student
+import domain.Student
 
 class StudentRepository {
     private val students = mutableListOf(

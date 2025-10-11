@@ -23,8 +23,7 @@ class StudentHandler(
             }
 
             get("/{id}") {
-                val id = call.parameters["id"]?.toIntOrNull()
-                if (id == null) return@get call.respond(HttpStatusCode.BadRequest)
+                val id = call.parameters["id"]?.toIntOrNull() ?: return@get call.respond(HttpStatusCode.BadRequest)
                 val student = studentUseCases.getStudentById(id)
                 if (student != null)
                     call.respond(student)

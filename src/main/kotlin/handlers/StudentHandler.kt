@@ -4,11 +4,14 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
+import io.ktor.server.routing.delete
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
+import io.ktor.server.routing.put
 import io.ktor.server.routing.route
-import mappers.toResponseDto
 import models.dto.StudentRequestDto
+import models.dto.toResponseDto
+import models.dto.toStudent
 import usecases.StudentUseCases
 
 class StudentHandler(
@@ -33,8 +36,30 @@ class StudentHandler(
 
             post {
                 val student = call.receive<StudentRequestDto>()
-                val newStudent = studentUseCases.createStudent(student)
+                val newStudent = studentUseCases.createStudent(student.toStudent())
                 call.respond(HttpStatusCode.Created, newStudent.toResponseDto())
+            }
+
+            put("/{id}") {
+                val id = call.parameters["id"]?.toIntOrNull() ?: return@put call.respond(HttpStatusCode.BadRequest)
+
+                val dto = call.receive<StudentRequestDto>()
+                val toUpdate = dto.toStudent().copy(id = id)
+                val updated = studentUseCases.updateStudent(toUpdate)
+                if (updated != null)
+                    call.respond(updated.toResponseDto())
+                else
+                    call.respond(HttpStatusCode.NotFound)
+            }
+
+            delete("/{id}") {
+                val id = call.parameters["id"]?.toIntOrNull() ?: return@delete call.respond(HttpStatusCode.BadRequest)
+
+                val deleted = studentUseCases.deleteStudent(id)
+                if (deleted)
+                    call.respond(HttpStatusCode.NoContent)
+                else
+                    call.respond(HttpStatusCode.NotFound)
             }
         }
     }

@@ -8,7 +8,7 @@ import org.koin.logger.slf4jLogger
 fun Application.module() {
     install(Koin) {
         slf4jLogger()
-        modules(appModule)
+        modules(appModule, mapDbModule)
     }
 
     install(ContentNegotiation) {

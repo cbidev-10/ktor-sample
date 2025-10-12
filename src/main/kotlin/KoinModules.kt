@@ -1,11 +1,16 @@
-import usecases.StudentUseCases
 import handlers.StudentHandler
+import models.Student
 import org.koin.dsl.module
-import repositories.StudentRepository
+import org.mapdb.DB
+import org.mapdb.DBMaker
+import org.mapdb.Serializer
+import repositories.IStudentRepository
+import repositories.impl.StudentRepositoryMapDbImpl
+import usecases.StudentUseCases
 
 val appModule = module {
-    single {
-        StudentRepository()
+    single<IStudentRepository> {
+        StudentRepositoryMapDbImpl(get())
     }
 
     single {
@@ -14,5 +19,18 @@ val appModule = module {
 
     single {
         StudentHandler(get())
+    }
+}
+
+val mapDbModule = module {
+    single<DB> {
+        DBMaker.memoryDB().make()
+    }
+
+    single<MutableMap<Int, Student>> {
+        get<DB>().hashMap(
+            "students",
+            Serializer.INTEGER, Serializer.JAVA
+        ).createOrOpen() as MutableMap<Int, Student>
     }
 }

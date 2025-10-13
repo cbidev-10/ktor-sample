@@ -26,6 +26,8 @@ dependencies {
     implementation(libs.ktor.server.config.yaml)
     implementation(libs.koin.ktor)
     implementation(libs.koin.logger)
+    implementation(libs.db.store)
     testImplementation(libs.ktor.server.test.host)
     testImplementation(libs.kotlin.test.junit)
+    testImplementation(libs.mockk)
 }

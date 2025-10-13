@@ -1,10 +1,9 @@
 package usecases
 
-import domain.Student
-import models.dto.StudentRequestDto
-import repositories.StudentRepository
+import models.Student
+import repositories.IStudentRepository
 
-class StudentUseCases(val studentRepository: StudentRepository) {
+class StudentUseCases(private val studentRepository: IStudentRepository) {
 
     fun getAllStudents(): List<Student> {
         return studentRepository.getAll()
@@ -14,18 +13,15 @@ class StudentUseCases(val studentRepository: StudentRepository) {
         return studentRepository.get(id)
     }
 
-    fun createStudent(student: StudentRequestDto): Student {
-        // TODO: Este es el punto en el que hay que validar ciertos valores
-        return studentRepository.create(student.legajo, student.firstName, student.lastName, student.email)
+    fun createStudent(student: Student): Student {
+        return studentRepository.create(student)
     }
 
-    fun updateStudent(id: Int, student: StudentRequestDto): Student? {
-        // TODO: Acá tambien deberíamos chequear ciertas cosas
-        return studentRepository.update(id, student.legajo, student.firstName, student.lastName, student.email)
+    fun updateStudent(student: Student): Student? {
+        return studentRepository.update(student)
     }
 
-    fun deleteStudent(id: Int) {
-        // TODO: Acá chequear la decisión, si es importante retornar que esta ok o no.
-        studentRepository.delete(id)
+    fun deleteStudent(id: Int): Boolean {
+        return studentRepository.delete(id)
     }
 }

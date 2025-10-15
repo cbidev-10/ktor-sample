@@ -1,3 +1,5 @@
+package routes
+
 import handlers.StudentHandler
 import io.ktor.server.application.Application
 import io.ktor.server.routing.routing

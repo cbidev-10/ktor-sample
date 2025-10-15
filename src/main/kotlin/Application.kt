@@ -17,4 +17,5 @@ fun Application.module() {
     }
 
     registerRoutes()
+    configureWarmup()
 }

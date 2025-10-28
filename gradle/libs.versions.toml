@@ -6,6 +6,7 @@ serialization = "2.3.12"
 koin-ktor = "3.5.6"
 map-db = "3.0.9"
 mockk-version = "1.13.8"
+shadowJarVersion = "9.1.0"
 
 [libraries]
 ktor-server-core = { module = "io.ktor:ktor-server-core-jvm", version.ref = "ktor" }
@@ -26,3 +27,4 @@ mockk = { module = "io.mockk:mockk", version.ref = "mockk-version" }
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 ktor = { id = "io.ktor.plugin", version.ref = "ktor" }
+shadow-jar = { id = "com.gradleup.shadow", version.ref = "shadowJarVersion" }
